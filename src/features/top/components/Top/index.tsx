@@ -13,8 +13,9 @@ export const Top = ({ liff, profile }: Props) => {
       {profile && (
         <div>
           <Image alt="profile" height={80} src={profile.pictureUrl ?? ""} width={80} />
-          <p className="text-center text-xl font-bold">userId: {profile.userId}</p>
-          <p className="text-center text-gray-500">displayName: {profile.displayName}</p>
+          <div>userId: {profile.userId}</div>
+          <div>displayName: {profile.displayName}</div>
+          <div>statusMessage: {profile.statusMessage}</div>
         </div>
       )}
       {profile ? (

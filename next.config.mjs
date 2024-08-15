@@ -11,7 +11,6 @@ const nextConfig = {
   typescript: {
     tsconfigPath: process.env.NODE_ENV === "test" ? "tsconfig.test.json" : "tsconfig.json",
   },
-  pageExtensions: ["api.ts"],
 };
 
 export default nextConfig;
