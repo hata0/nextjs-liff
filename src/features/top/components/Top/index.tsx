@@ -3,8 +3,8 @@ import { Liff } from "@line/liff";
 import Image from "next/image";
 
 type Props = {
-  liff: Liff | null;
-  profile: Profile | null;
+  liff?: Liff;
+  profile?: Profile;
 };
 
 export const Top = ({ liff, profile }: Props) => {

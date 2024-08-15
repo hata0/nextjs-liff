@@ -3,19 +3,17 @@ import { Liff } from "@line/liff";
 import { createContext, PropsWithChildren, useContext, useEffect, useState } from "react";
 
 type LiffContextProps = {
-  liff: Liff | null;
+  liff?: Liff;
 };
 
-const LiffContext = createContext<LiffContextProps>({
-  liff: null,
-});
+const LiffContext = createContext<LiffContextProps>({});
 
 export const useLiffContext = () => {
   return useContext(LiffContext);
 };
 
 export const LiffProvider = ({ children }: PropsWithChildren) => {
-  const [liff, setLiff] = useState<Liff | null>(null);
+  const [liff, setLiff] = useState<Liff | undefined>();
 
   useEffect(() => {
     void (async () => {

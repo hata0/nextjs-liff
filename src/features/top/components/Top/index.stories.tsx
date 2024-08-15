@@ -15,12 +15,7 @@ export const Default: Story = {
   },
 };
 
-export const Empty: Story = {
-  args: {
-    liff: null,
-    profile: null,
-  },
-};
+export const Empty: Story = {};
 
 export default {
   component: Top,
