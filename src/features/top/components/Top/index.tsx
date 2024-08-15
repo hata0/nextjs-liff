@@ -1,6 +1,6 @@
-import Image from "next/image";
-import { Profile } from "@liff/get-profile";
+import type { Profile } from "@liff/get-profile";
 import { Liff } from "@line/liff";
+import Image from "next/image";
 
 type Props = {
   liff: Liff | null;

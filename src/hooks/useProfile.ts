@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { Profile } from "@liff/get-profile";
+import type { Profile } from "@liff/get-profile";
 import { Liff } from "@line/liff";
+import { useEffect, useState } from "react";
 
 export const useProfile = (liff: Liff | null) => {
   const [profile, setProfile] = useState<Profile | null>(null);
