@@ -29,6 +29,7 @@ export const Top = ({ liff, profile }: Props) => {
   const handleCountUp = async () => {
     const idToken = liff?.getIDToken() ?? "";
     await putCountUp(idToken);
+    liff?.closeWindow();
   };
 
   return (
