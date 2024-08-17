@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 import { Button } from "@/components/shadcn/ui/button";
+import { putCountUp } from "@/services/backend/count-up";
 
 type Props = {
   liff?: Liff;
@@ -25,11 +26,16 @@ export const Top = ({ liff, profile }: Props) => {
     });
   };
 
+  const handleCountUp = async () => {
+    const idToken = liff?.getIDToken() ?? "";
+    await putCountUp(idToken);
+  };
+
   return (
     <div className="inline-flex flex-col">
       {profile && (
         <div>
-          <Image alt="profile" height={80} src={profile.pictureUrl ?? ""} width={80} />
+          <Image priority alt="profile" height={80} src={profile.pictureUrl ?? ""} width={80} />
           <div>userId: {profile.userId}</div>
           <div>displayName: {profile.displayName}</div>
           <div>statusMessage: {profile.statusMessage}</div>
@@ -60,6 +66,7 @@ export const Top = ({ liff, profile }: Props) => {
           <div>{position.longitude}</div>
         </div>
       )}
+      <Button onClick={() => void handleCountUp()}>カウントアップ</Button>
     </div>
   );
 };

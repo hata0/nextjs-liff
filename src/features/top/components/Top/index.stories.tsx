@@ -1,5 +1,8 @@
+import { fn } from "@storybook/test";
+
 import { Top } from ".";
 
+import { putCountUpHandler } from "@/services/backend/count-up/mock";
 import { LIFF } from "@/tests/mocks/liff";
 import { PROFILE } from "@/tests/mocks/profile";
 import { Meta } from "@/tests/storybook/types/Meta";
@@ -13,11 +16,19 @@ export const Default: Story = {
     liff: LIFF,
     profile: PROFILE,
   },
+  beforeEach: () => {
+    (LIFF.getIDToken as ReturnType<typeof fn>).mockReturnValue("idToken");
+  },
 };
 
 export const Empty: Story = {};
 
 export default {
   component: Top,
+  parameters: {
+    msw: {
+      handlers: [putCountUpHandler()],
+    },
+  },
   title: "Features/top/Top",
 } satisfies Meta<T>;
