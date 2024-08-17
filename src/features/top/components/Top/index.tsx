@@ -1,15 +1,32 @@
 import type { Profile } from "@liff/get-profile";
 import { Liff } from "@line/liff";
 import Image from "next/image";
+import { useState } from "react";
+
+import { Button } from "@/components/shadcn/ui/button";
 
 type Props = {
   liff?: Liff;
   profile?: Profile;
 };
 
+type Position = {
+  latitude: number;
+  longitude: number;
+};
+
 export const Top = ({ liff, profile }: Props) => {
+  const [position, setPosition] = useState<Position | undefined>();
+
+  const handleGetCurrentPosition = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
+      setPosition({ latitude, longitude });
+    });
+  };
+
   return (
-    <div>
+    <div className="inline-flex flex-col">
       {profile && (
         <div>
           <Image alt="profile" height={80} src={profile.pictureUrl ?? ""} width={80} />
@@ -35,6 +52,13 @@ export const Top = ({ liff, profile }: Props) => {
         >
           login
         </button>
+      )}
+      <Button onClick={handleGetCurrentPosition}>現在地を取得</Button>
+      {position && (
+        <div>
+          <div>{position.latitude}</div>
+          <div>{position.longitude}</div>
+        </div>
       )}
     </div>
   );
