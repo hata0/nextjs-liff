@@ -1,6 +1,7 @@
 import type { Profile } from "@liff/get-profile";
 import { Liff } from "@line/liff";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 import { Button } from "@/components/shadcn/ui/button";
@@ -68,6 +69,9 @@ export const Top = ({ liff, profile }: Props) => {
         </div>
       )}
       <Button onClick={() => void handleCountUp()}>カウントアップ</Button>
+      <Button asChild>
+        <Link href="/map">マップへ</Link>
+      </Button>
     </div>
   );
 };
