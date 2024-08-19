@@ -11,7 +11,15 @@ import { StoryObj } from "@/tests/storybook/types/StoryObj";
 type T = typeof Top;
 type Story = StoryObj<T>;
 
-export const Default: Story = {
+export const Default: Story = {};
+
+export const Empty: Story = {
+  beforeEach: () => {
+    (LIFF.getIDToken as ReturnType<typeof fn>).mockReturnValue(null);
+  },
+};
+
+export default {
   args: {
     liff: LIFF,
     profile: PROFILE,
@@ -19,11 +27,6 @@ export const Default: Story = {
   beforeEach: () => {
     (LIFF.getIDToken as ReturnType<typeof fn>).mockReturnValue("idToken");
   },
-};
-
-export const Empty: Story = {};
-
-export default {
   component: Top,
   parameters: {
     msw: {
