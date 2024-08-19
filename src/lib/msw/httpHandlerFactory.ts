@@ -6,18 +6,19 @@ type HandlerFactoryArgs = {
     message: string;
     status: number;
   };
+  resolver?: HttpResponseResolver;
 };
 
 export const httpHandlerFactory = (
   method: keyof typeof http,
   path: string,
-  resolver: HttpResponseResolver,
+  defaultResolver: HttpResponseResolver,
 ) => {
   return (args?: HandlerFactoryArgs) => {
     if (!args) {
-      return http[method](path, resolver);
+      return http[method](path, defaultResolver);
     }
-    const { error, isNetworkError } = args;
+    const { error, isNetworkError, resolver } = args;
 
     if (isNetworkError) {
       return http[method](path, () => {
@@ -34,8 +35,10 @@ export const httpHandlerFactory = (
           },
         );
       });
-    } else {
+    } else if (resolver) {
       return http[method](path, resolver);
+    } else {
+      return http[method](path, defaultResolver);
     }
   };
 };
