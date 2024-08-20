@@ -16,6 +16,7 @@ const nextConfig = {
       {
         source: "/:path*",
         headers: [
+          { key: "Access-Control-Allow-Credentials", value: "true" },
           {
             key: "Access-Control-Allow-Origin",
             value: process.env.NEXT_PUBLIC_BACKEND_URL ?? "",
@@ -26,7 +27,7 @@ const nextConfig = {
           },
           {
             key: "Access-Control-Allow-Headers",
-            value: "Content-Type, Authorization",
+            value: "Content-Type, Authorization, ngrok-skip-browser-warning",
           },
         ],
       },

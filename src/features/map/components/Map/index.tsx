@@ -16,7 +16,7 @@ type Position = {
 };
 
 export const Map = ({ liff }: Props) => {
-  const [placesData, setPlacesData] = useState<PlaceData[]>([]);
+  const [placesData, setPlacesData] = useState<PlaceData[] | undefined>();
 
   const [position, setPosition] = useState<Position | undefined>();
 
@@ -30,40 +30,43 @@ export const Map = ({ liff }: Props) => {
   const handleNearbyRestaurants = async () => {
     const idToken = liff?.getIDToken() ?? "";
     const { res } = await getNearbyPlaces(idToken);
-    const placesData = (await res?.json()) as PlaceData[];
-    setPlacesData(placesData);
+    if (res?.ok) {
+      const placesData = (await res?.json()) as PlaceData[];
+      setPlacesData(placesData);
+    }
   };
 
   return (
     <div>
       <Button onClick={() => void handleNearbyRestaurants()}>近くのレストランを取得</Button>
-      {placesData.map((placeData, index) => (
-        <div key={index}>
-          <a
-            href={createPlaceDetailUrl({
-              name: placeData.name ?? "",
-              placeId: placeData.placeId ?? "",
-            })}
-          >
-            詳細を表示
-          </a>
-          <a
-            href={
-              position
-                ? createPlaceDirectionUrl({
-                    destination: {
-                      name: placeData.name ?? "",
-                      placeId: placeData.placeId ?? "",
-                    },
-                    origin: position,
-                  })
-                : ""
-            }
-          >
-            ルートを表示
-          </a>
-        </div>
-      ))}
+      {placesData &&
+        placesData.map((placeData, index) => (
+          <div key={index}>
+            <a
+              href={createPlaceDetailUrl({
+                name: placeData.name ?? "",
+                placeId: placeData.placeId ?? "",
+              })}
+            >
+              詳細を表示
+            </a>
+            <a
+              href={
+                position
+                  ? createPlaceDirectionUrl({
+                      destination: {
+                        name: placeData.name ?? "",
+                        placeId: placeData.placeId ?? "",
+                      },
+                      origin: position,
+                    })
+                  : ""
+              }
+            >
+              ルートを表示
+            </a>
+          </div>
+        ))}
     </div>
   );
 };

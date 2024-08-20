@@ -9,5 +9,6 @@ export const getNearbyPlaces = (idToken: string) =>
   fetcher(createPath(), {
     headers: {
       Authorization: `Bearer ${idToken}`,
-    },
+      "ngrok-skip-browser-warning": true,
+    } as unknown as HeadersInit,
   });
