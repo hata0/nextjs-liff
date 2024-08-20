@@ -23,7 +23,7 @@ const nextConfig = {
           },
           {
             key: "Access-Control-Allow-Methods",
-            value: "GET,HEAD,PUT,PATCH,POST,DELETE",
+            value: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
           },
           {
             key: "Access-Control-Allow-Headers",
